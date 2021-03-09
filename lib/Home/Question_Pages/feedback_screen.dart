@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:skippo/Home/Question_Pages/detailed_feedback_screen.dart';
 import 'package:skippo/Home/Question_Pages/question.dart';
 
@@ -34,6 +35,13 @@ class FeedbackPage extends StatelessWidget {
                 )));
   }
 
+  _queryFeedback() async {
+    final InAppReview inAppReview = InAppReview.instance;
+    if (await inAppReview.isAvailable()) {
+      inAppReview.requestReview();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final correctAnswers = answeredCorrectly.length;
@@ -41,6 +49,7 @@ class FeedbackPage extends StatelessWidget {
     final practicedQuestions = correctAnswers + wrongAnswersNum;
     final showWrong = wrongAnswersNum > 0;
     final showCorrect = correctAnswers > 0;
+    _queryFeedback();
     return Scaffold(
       appBar: AppBar(
         title: Text(
