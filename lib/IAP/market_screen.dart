@@ -198,7 +198,7 @@ class _MarketScreenState extends State<MarketScreen> {
                     // Container(
                     //     child:
                     CupertinoButton(
-                        child: AutoSizeText(item.price),
+                        child: AutoSizeText(item.price + '₪'),
                         color: Colors.lightBlue[800],
                         onPressed: () {
                           _requestPurchase(item);
