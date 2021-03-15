@@ -8,7 +8,8 @@ import 'package:skippo/Home/Question_Pages/test_landing_screen.dart';
 import 'package:skippo/Home/account_screen.dart';
 import 'package:skippo/Home/home_card.dart';
 import 'package:skippo/Home/home_page_stateful.dart';
-import 'package:skippo/IAP/market_screen.dart';
+import 'package:skippo/IAP/updated_market_screen.dart';
+
 import 'package:skippo/Services/database.dart';
 import 'package:skippo/common_widgets/platform_alert_dialog.dart';
 
@@ -247,7 +248,7 @@ class _SecondaryMenuState extends State<SecondaryMenu> {
   }
 
   Future<void> _buyFullVersion() async {
-    MarketScreen.show(context);
+    UpdatedMarketScreen.show(context);
     // await Navigator.push(
     //     context,
     //     MaterialPageRoute(
