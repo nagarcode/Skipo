@@ -49,15 +49,17 @@ class TestLandingPage extends StatelessWidget {
   }
 
   _startButton(BuildContext context) {
-    return FlatButton(
+    return TextButton(
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: BorderSide(color: Colors.black),
+        ),
+      ),
       onPressed: () {
         TestPage.create(context, type, questions);
       },
       child: Text('התחל מבחן'),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        side: BorderSide(color: Colors.black),
-      ),
     );
   }
 

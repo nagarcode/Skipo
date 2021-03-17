@@ -164,8 +164,14 @@ class _TestPageState extends State<TestPage> {
     final answered =
         widget.answeredCorrectly.length + widget.wrongAnsweres.length;
     final unAnswered = testLength - answered;
-    return FlatButton(
-      color: Colors.white,
+    return TextButton(
+      style: TextButton.styleFrom(
+        primary: Colors.black,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(color: Colors.black)),
+      ),
+      // color: Colors.white,
       onPressed: () async {
         final didRequestEnd = await PlatformAlertDialog(
           content: unAnswered == 0
@@ -188,9 +194,6 @@ class _TestPageState extends State<TestPage> {
         'הגש מבחן',
         style: TextStyle(fontSize: 22),
       ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          side: BorderSide(color: Colors.black)),
     );
   }
 

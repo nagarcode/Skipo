@@ -54,16 +54,18 @@ class _PracticePageState extends State<PracticePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButton: FlatButton(
-        color: Colors.white,
+      floatingActionButton: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.black,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              side: BorderSide(color: Colors.black)),
+        ),
         onPressed: _navigateToFeedback,
         child: Text(
           'סיום',
-          style: TextStyle(fontSize: 22),
+          style: TextStyle(fontSize: 20),
         ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(color: Colors.black)),
       ),
       appBar: AppBar(
         title: Text(

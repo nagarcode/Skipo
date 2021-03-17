@@ -126,15 +126,18 @@ class FeedbackPage extends StatelessWidget {
   }
 
   _detailsButton(BuildContext context) {
-    return FlatButton(
+    return TextButton(
+      style: TextButton.styleFrom(
+        primary: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.0),
+          side: BorderSide(color: Colors.black),
+        ),
+      ),
       onPressed: () {
         DetailedFeedbackPage.create(context, wrongAnswers, answeredCorrectly);
       },
       child: Text('פירוט תשובות'),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(7.0),
-        side: BorderSide(color: Colors.black),
-      ),
     );
   }
 

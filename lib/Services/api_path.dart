@@ -25,4 +25,6 @@ class APIPath {
   static answeredQuestions() => 'answeredQuestionsCounter';
 
   static testsCounter() => 'testCounter';
+
+  static skipoLogo() => 'assets/Icons/skipo.png';
 }

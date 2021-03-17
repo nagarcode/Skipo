@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:skippo/Home/Question_Pages/question.dart';
 import 'package:skippo/Home/Signs/sign_tab.dart';
 import 'package:skippo/Home/home_card.dart';
-import 'package:skippo/IAP/market_screen.dart';
+import 'package:skippo/IAP/updated_market_screen.dart';
 import 'package:skippo/Services/api_path.dart';
 import 'package:skippo/common_widgets/platform_alert_dialog.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
@@ -191,7 +191,7 @@ class LocalPersistance implements Database {
       if (!didRequestBuy)
         Navigator.of(context).popUntil((route) => route.isFirst);
       else
-        MarketScreen.show(context);
+        UpdatedMarketScreen.show(context);
     }
     return !mustBuy;
   }
