@@ -123,29 +123,34 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
   }
 
   Widget _subscriptionSmallPrint() {
+    final price = sub.price.padRight(4, '0');
     final text =
-        'חיוב של 5.9 שקלים באופן חודשי דרך חשבון האפל שלך החל מעכשיו ועד אשר תתקבל בקשה לביטול (ניתן לבטל בכל רגע, ללא התחייבות, דרך חשבון האפל שלך בהגדרות הטלפון). לעוד מידע ניתן לגשת ל:';
+        'חיוב של $price שקלים באופן חודשי דרך חשבון האפל שלך החל מעכשיו ועד אשר תתקבל בקשה לביטול (ניתן לבטל בכל רגע, ללא התחייבות, דרך חשבון האפל שלך בהגדרות הטלפון). לעוד מידע ניתן לגשת ל';
 
     return Center(
-      child: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(children: [
-            TextSpan(
-                text: text, style: TextStyle(color: Colors.grey, fontSize: 10)),
-            TextSpan(
-                text: 'מדיניות הפרטיות ',
-                style: TextStyle(color: Colors.blue, fontSize: 10),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = _launchPrivacyPolicyURL),
-            TextSpan(
-                text: 'או ל',
-                style: TextStyle(color: Colors.grey, fontSize: 10)),
-            TextSpan(
-                text: 'תנאי השימוש',
-                style: TextStyle(color: Colors.blue, fontSize: 10),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = _launchTermsOfUseURL),
-          ])),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3),
+        child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(children: [
+              TextSpan(
+                  text: text,
+                  style: TextStyle(color: Colors.grey, fontSize: 10)),
+              TextSpan(
+                  text: 'מדיניות הפרטיות ',
+                  style: TextStyle(color: Colors.blue, fontSize: 10),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = _launchPrivacyPolicyURL),
+              TextSpan(
+                  text: 'או ל',
+                  style: TextStyle(color: Colors.grey, fontSize: 10)),
+              TextSpan(
+                  text: 'תנאי השימוש',
+                  style: TextStyle(color: Colors.blue, fontSize: 10),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = _launchTermsOfUseURL),
+            ])),
+      ),
     );
   }
 
@@ -351,7 +356,7 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     _buildPlanLabel('מנוי מוזל'),
-                    _buildPlanPrice(sub.price + '₪'),
+                    _buildPlanPrice(sub.price.padRight(4, '0') + '₪'),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: _buildFeatureLabel('לכל חודש, ניתן לבטל בכל רגע'),
