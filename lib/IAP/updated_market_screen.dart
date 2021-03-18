@@ -123,7 +123,6 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
   }
 
   Widget _subscriptionSmallPrint() {
-    final theme = Theme.of(context).textTheme;
     final text =
         'חיוב של 5.9 שקלים באופן חודשי דרך חשבון האפל שלך החל מעכשיו ועד אשר תתקבל בקשה לביטול (ניתן לבטל בכל רגע, ללא התחייבות, דרך חשבון האפל שלך בהגדרות הטלפון). לעוד מידע ניתן לגשת ל:';
 
