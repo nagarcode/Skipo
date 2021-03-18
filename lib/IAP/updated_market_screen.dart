@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:skippo/Home/splash_screen.dart';
 import 'package:skippo/Services/api_path.dart';
 import 'package:skippo/Services/database.dart';
 import 'package:skippo/common_widgets/platform_alert_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const oneTimePaymentProductID = 'full7';
 const subscriptionProductID = 'sub4';
@@ -99,12 +101,53 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
               _currentPlan(),
               // _infoBox(),
               _subscriptionPlanBox(),
+              _subscriptionSmallPrint(),
               // _buyWithArrow(),
               Expanded(child: _otherPlanLayout()),
             ],
           ),
         ),
       );
+  }
+
+  void _launchURL(String url) async {
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  }
+
+  _launchTermsOfUseURL() {
+    _launchURL(APIPath.termsAndConditionsURL());
+  }
+
+  _launchPrivacyPolicyURL() {
+    _launchURL(APIPath.privacyPolicyURL());
+  }
+
+  Widget _subscriptionSmallPrint() {
+    final theme = Theme.of(context).textTheme;
+    final text =
+        'חיוב של 5.9 שקלים באופן חודשי דרך חשבון האפל שלך החל מעכשיו ועד אשר תתקבל בקשה לביטול (ניתן לבטל בכל רגע, ללא התחייבות, דרך חשבון האפל שלך בהגדרות הטלפון). לעוד מידע ניתן לגשת ל:';
+
+    return Center(
+      child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(children: [
+            TextSpan(
+                text: text, style: TextStyle(color: Colors.grey, fontSize: 10)),
+            TextSpan(
+                text: 'מדיניות הפרטיות ',
+                style: TextStyle(color: Colors.blue, fontSize: 10),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = _launchPrivacyPolicyURL),
+            TextSpan(
+                text: 'או ל',
+                style: TextStyle(color: Colors.grey, fontSize: 10)),
+            TextSpan(
+                text: 'תנאי השימוש',
+                style: TextStyle(color: Colors.blue, fontSize: 10),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = _launchTermsOfUseURL),
+          ])),
+    );
   }
 
   Future _getProducts() async {

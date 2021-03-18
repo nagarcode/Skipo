@@ -27,4 +27,8 @@ class APIPath {
   static testsCounter() => 'testCounter';
 
   static skipoLogo() => 'assets/Icons/skipo.png';
+  static privacyPolicyURL() =>
+      'https://nagarcode.github.io/Skipo/Privacy-Policy.html';
+  static termsAndConditionsURL() =>
+      'https://nagarcode.github.io/Skipo/Terms-And-Conditions.html';
 }

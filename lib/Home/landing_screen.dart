@@ -20,8 +20,8 @@ class LandingScreen extends StatelessWidget {
     return PreferenceBuilder(
         preference: _payStream(),
         builder: (context, bool snapshot) {
-          // final bool didPay = false;
-          final bool didPay = snapshot;
+          final bool didPay = false;
+          // final bool didPay = snapshot; //TODO: change
           return Provider<bool>.value(
             value: didPay,
             child: HomePageStateful(
