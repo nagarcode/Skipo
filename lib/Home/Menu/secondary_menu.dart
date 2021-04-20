@@ -52,24 +52,24 @@ class _SecondaryMenuState extends State<SecondaryMenu> {
   @override
   void initState() {
     super.initState();
-    final obligatory = widget.isObligatory;
+    // final obligatory = widget.isObligatory;
 
-    if (!widget.didPay) {
-      final dialog = PlatformAlertDialog(
-        title: obligatory ? 'סיימת את מכסת הנסיון' : 'זוהי גרסת נסיון מוגבלת',
-        defaultActionText: obligatory ? 'חזור למסך הבית' : 'עדיין לא',
-        content:
-            'זוהי גרסא חינמית לזמן מוגבל. כדי להנות משימוש מלא עליך לרכוש את האפליקציה',
-        cancelActionText: 'רכוש עכשיו',
-      );
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final didRequestBuy = !await dialog.show(context);
-        if (didRequestBuy)
-          _buyFullVersion();
-        else if (obligatory)
-          Navigator.of(context).popUntil((route) => route.isFirst);
-      });
-    }
+    // if (!widget.didPay) {
+    //   final dialog = PlatformAlertDialog(
+    //     title: obligatory ? 'סיימת את מכסת הנסיון' : 'זוהי גרסת נסיון מוגבלת',
+    //     defaultActionText: obligatory ? 'חזור למסך הבית' : 'עדיין לא',
+    //     content:
+    //         'זוהי גרסא חינמית לזמן מוגבל. כדי להנות משימוש מלא עליך לרכוש את האפליקציה',
+    //     cancelActionText: 'רכוש עכשיו',
+    //   );
+    //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //     final didRequestBuy = !await dialog.show(context);
+    //     if (didRequestBuy)
+    //       _buyFullVersion();
+    //     else if (obligatory)
+    //       Navigator.of(context).popUntil((route) => route.isFirst);
+    //   });
+    // }
     isLoading = false;
   }
 

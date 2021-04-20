@@ -94,16 +94,16 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
           width: MediaQuery.of(context).size.width,
           color: Colors.white,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _logo(),
               _skipo(),
+              // _buyWithArrow(),
               _currentPlan(),
-              // _infoBox(),
+              _otherPlanLayout(),
               _subscriptionPlanBox(),
               _subscriptionSmallPrint(),
-              // _buyWithArrow(),
-              Expanded(child: _otherPlanLayout()),
             ],
           ),
         ),
@@ -129,7 +129,7 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(children: [
@@ -310,7 +310,6 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          _otherPlansLabel(),
           _planRow(),
         ],
       ),
@@ -333,68 +332,79 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
   }
 
   Widget _subscriptionPlanBox() {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        // splashColor: Colors.redAccent[100],
-        highlightColor: Colors.white,
-        onTap: () {
-          _requestPurchase(sub);
-        },
-        child: Container(
-          height: MediaQuery.of(context).size.width * 0.3,
-          width: MediaQuery.of(context).size.width * 0.35,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey[300]),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _otherPlansLabel(),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
             borderRadius: BorderRadius.circular(10),
+            // splashColor: Colors.redAccent[100],
+            highlightColor: Colors.white,
+            onTap: () {
+              _requestPurchase(sub);
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.35,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey[300]),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
+              child: smallWidgetIsLoading
+                  ? CircularProgressIndicator.adaptive()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        _buildPlanLabel(sub.title),
+                        _buildPlanPrice(sub.price.padRight(4, '0') + '₪'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: _buildFeatureLabel(
+                              'לחודש באופן זמני, ניתן לבטל בכל רגע'),
+                        ),
+                        _callToActionText(),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 5.0),
+                        //   child: _buildFeatureLabel(
+                        //       '-Simultaneous viewing\n up to 2 people'),
+                        // ),
+                      ],
+                    ),
+            ),
           ),
-          padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
-          child: smallWidgetIsLoading
-              ? CircularProgressIndicator.adaptive()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    _buildPlanLabel('מנוי מוזל'),
-                    _buildPlanPrice(sub.price.padRight(4, '0') + '₪'),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: _buildFeatureLabel('לכל חודש, ניתן לבטל בכל רגע'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _payText(), //TODO: add conditional - if paid show checkmark
-                          Icon(
-                            CupertinoIcons.forward,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 5.0),
-                    //   child: _buildFeatureLabel(
-                    //       '-Simultaneous viewing\n up to 2 people'),
-                    // ),
-                  ],
-                ),
         ),
-      ),
+      ],
     );
   }
 
   Widget _payText() {
     return AutoSizeText(
-      'לתשלום',
+      'קדימה',
       style: TextStyle(
           letterSpacing: 0.5,
           color: Colors.black,
           fontWeight: FontWeight.w800,
           fontSize: 13),
       textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _callToActionText() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _payText(),
+          Icon(
+            CupertinoIcons.forward,
+            color: Colors.black,
+          ),
+        ],
+      ),
     );
   }
 
@@ -425,13 +435,14 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      _buildPlanLabel('קנה לתמיד'),
+                      _buildPlanLabel('גישה לתמיד'),
                       _buildPlanPrice(oneTimePayment.price + '₪'),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: _buildFeatureLabel(
                             'תשלום חד פעמי המקנה גישה לתמיד'),
                       ),
+                      _callToActionText()
                       // Padding(
                       //   padding: const EdgeInsets.only(top: 5.0),
                       //   child: _buildFeatureLabel(
@@ -478,6 +489,7 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
                         child: _buildFeatureLabel(
                             'קנית את סקיפו בעבר? לחץ כאן לשחזור הקניה בחינם'),
                       ),
+                      _callToActionText(),
                       // Padding(
                       //   padding: const EdgeInsets.only(
                       //     top: 5.0,
@@ -618,20 +630,14 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
     return Center(
       child: Padding(
         padding:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text("9/חודש",
-            //     style: TextStyle(
-            //         fontSize: 16,
-            //         color: Colors.black,
-            //         fontWeight: FontWeight.bold)),
-            // SizedBox(width: MediaQuery.of(context).size.width * 0.03),
             Text("תאוריה ימית",
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.black,
                     fontWeight: FontWeight.bold)),
           ],
@@ -642,7 +648,7 @@ class _UpdatedMarketScreenState extends State<UpdatedMarketScreen> {
 
   Widget _logo() {
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.09),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
       width: MediaQuery.of(context).size.width * 0.3,
       height: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
